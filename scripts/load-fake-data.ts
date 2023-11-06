@@ -1,10 +1,11 @@
 import { Client } from "pg";
 import { loadEnvConfig } from "@next/env";
+import { faker } from "@faker-js/faker";
 
 const projectDir = process.cwd();
 loadEnvConfig(projectDir);
 
-async function loadFakeData(numUsers: number = 10) {
+async function loadFakeData(numUsers: number) {
   console.log(`executing load fake data. generating ${numUsers} users.`);
 
   const client = new Client({
@@ -16,9 +17,28 @@ async function loadFakeData(numUsers: number = 10) {
   });
 
   await client.connect();
-  const res = await client.query("select 1");
-  console.log(res);
-  await client.end();
+
+  try {
+    await client.query("begin");
+
+    for (let i = 0; i < numUsers; i++) {
+      await client.query(
+        "insert into public.users (username, password, avatar) values ($1, $2, $3)",
+        [faker.internet.userName(), "password", faker.image.avatar()]
+      );
+    }
+
+    await client.query("commit");
+  } catch (error) {
+    await client.query("rollback");
+    throw error;
+  } finally {
+    await client.end();
+  }
 }
 
-loadFakeData();
+const numUsers = parseInt(process.argv[2]) || 10;
+
+console.log(`loading ${numUsers} fake users.`);
+
+loadFakeData(numUsers);
