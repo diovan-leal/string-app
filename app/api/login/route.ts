@@ -44,7 +44,7 @@ export async function POST(request: Request) {
         .setIssuedAt()
         .setExpirationTime("2w")
         .sign(new TextEncoder()
-            .encode("my-jwt-secret"));
+            .encode(process.env.JWT_SECRET));
 
     const response = NextResponse.json({msg: "login sucess"});
 
