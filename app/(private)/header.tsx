@@ -1,18 +1,7 @@
 "use client";
-import useSWR from "swr";
 
-const fetcher = async (url: RequestInfo | URL) => {
-    const res = await fetch(url);
-    if (!res.ok) {
-        const msg = "An error occured while fetching the data.";
-        const info = await res.json();
-        const status = res.status;
-        const error = new Error(msg);
-        console.error(info, status);
-        throw error;
-    }
-    return res.json();
-};
+import useSWR from "swr";
+import fetcher from "../util/fetcher";
 
 export default function Header() {
     const { data, error, isLoading } = useSWR("/api/users/profile", fetcher);
