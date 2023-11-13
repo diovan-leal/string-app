@@ -2,6 +2,7 @@ import { sql } from "@/db";
 import { NextResponse } from "next/server";
 import bcrypt from "bcrypt";
 import { SignJWT } from "jose";
+import { cookies } from "next/headers";
 
 export async function POST(request: Request) {
     const json = await request.json();
@@ -50,8 +51,9 @@ export async function POST(request: Request) {
 
     response.cookies.set("jwt-token", token, {
         sameSite: "strict", // prevent cross-site vulnerabilities
-        httpOnly: true,
+        httpOnly: false,
         secure: true,
+        path: "/",
     });
 
     return response;

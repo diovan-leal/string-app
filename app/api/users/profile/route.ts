@@ -14,7 +14,6 @@ export async function GET(request: Request) {
 
     const user = res.rows[0];
 
-    // return
     return NextResponse.json({
         data: user
     });
