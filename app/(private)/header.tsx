@@ -15,8 +15,6 @@ export default function Header() {
         return <div>loading...</div>;
     }
 
-    console.log(data);
-
     return (
         <header className="flex flex-row w-full p-5 bg-slate-800 rounded-lg my-2 justiy-between items-center">
             <div>
