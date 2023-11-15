@@ -5,7 +5,9 @@ export async function getJWTPayLoad() {
     const token = cookieStore.get("jwt-token");
     const secret = new TextEncoder()
         .encode(process.env.JWT_SECRET!);
-    
+
+    console.log(1);
     const { payload, protectedHeader } = await jwtVerify(token?.value!, secret);
+    console.log(2, payload);
     return payload;
 }

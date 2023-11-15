@@ -5,7 +5,8 @@ export async function middleware(request: NextRequest) {
     const pathname = request.nextUrl.pathname;
 
     const authenticatedApiRoutes = [
-        pathname.startsWith("/api/users")
+        pathname.startsWith("/api/users"),
+        pathname.startsWith("/api/posts"),
     ];
 
     if (authenticatedApiRoutes.includes(true)) {
@@ -29,10 +30,10 @@ export async function middleware(request: NextRequest) {
             console.error(error);
             return NextResponse.json(
                 {
-                    error: "internal server error"
+                    error: "unauthenticated"
                 },
                 {
-                    status: 500
+                    status: 401
                 }
             );
         }
