@@ -6,7 +6,8 @@ export async function GET(request: Request) {
     const jwtPayload = await getJWTPayLoad();
     const { searchParams } = new URL(request.url);
     const username = searchParams.get("username");
-    const page = (searchParams.get("page") && parseInt(searchParams.get("page")!) || 0);
+    const page = (searchParams.get("page")
+        && parseInt(searchParams.get("page")!) || 0);
     const limit = 3;
     const offset = page * 3;
 
@@ -31,6 +32,19 @@ export async function GET(request: Request) {
     return NextResponse.json({
         data: res.rows
     });
+}
 
+export async function POST(request: Request) {
+    const json = await request.json();
+    const content = json.content;
+    const jwtPayload = await getJWTPayLoad();
+    const statement = `insert into posts (user_id, content)
+                       values ($1, $2) returning`;
+                       
+    const res = await sql(statement, [
+        jwtPayload.sub,
+        content
+    ]);
 
+    return NextResponse.json({data: res.rows[0]}, {status: 201});
 }
