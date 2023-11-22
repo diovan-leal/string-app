@@ -5,7 +5,8 @@ import { NextResponse } from "next/server";
 export async function GET(request: Request,
     {params}: {params: {id: number}}) {
         const jwtPayload = await getJWTPayLoad();
-        const  res = await sql("select * from posts where id = $i and user_id = $2", [
+        const statement = "select * from posts where id = $i and user_id = $2";
+        const  res = await sql(statement, [
             params.id,
             jwtPayload.sub
         ]);
@@ -16,3 +17,31 @@ export async function GET(request: Request,
 
         return NextResponse.json({data: res.rows[0]});
 }
+
+export async function PATH(request: Request,
+    {params}: {params: {id: number}}) {
+        const body = await request.json();
+        const jwtPayload = await getJWTPayLoad();
+        const statement = "select * from posts where user_id = $1 and id = $2";
+        const res = await sql(statement, [
+            jwtPayload.sub,
+            params.id
+        ]);
+
+        if (res.rowCount == 0) {
+            return NextResponse.json({error: "not found"}, {status: 404});
+        }
+
+        const updateStatement = `update posts 
+                              set content = $i
+                            where user_id = $2
+                              and id = $3`;
+
+        await sql(updateStatement, [
+            body.content,
+            jwtPayload.sub,
+            params.id
+        ]);
+
+        return NextResponse.json({msg: "update sucess"});
+    }
