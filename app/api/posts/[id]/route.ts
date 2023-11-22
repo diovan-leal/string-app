@@ -44,4 +44,22 @@ export async function PATH(request: Request,
         ]);
 
         return NextResponse.json({msg: "update sucess"});
+}
+
+export async function DELETE(
+    request: Request,
+    {params}: {params: {id: number}}
+) {
+    const jwtPayload = await getJWTPayLoad();
+    const res = await sql("delete from posts where user_id = $i and id = $2", [
+        jwtPayload.sub,
+        params.id
+    ]);
+
+    if (res.rowCount == 1) {
+        return NextResponse.json({msg: "delete success"});
     }
+
+    return NextResponse.json({error: "not found"}, {status: 404});
+}
+
