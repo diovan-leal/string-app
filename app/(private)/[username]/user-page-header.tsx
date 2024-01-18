@@ -1,4 +1,5 @@
 import useSWR from "swr";
+import notFound from "../not-found";
 
 export default function UserPageHeader({username} : {username: string}) {
     const { 
@@ -18,7 +19,12 @@ export default function UserPageHeader({username} : {username: string}) {
 
     console.log(dataUser, dataFollow);
 
+    if (dataUser.data.length == 0) {
+        notFound();
+    }
+
     const user = dataUser.data[0];
+
     async function handleUnfollow() {
         const res = await fetch("/api/follows/" + user.id, {
             method: "delete"
