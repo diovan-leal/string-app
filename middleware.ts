@@ -8,6 +8,12 @@ export async function middleware(request: NextRequest) {
         pathname.startsWith("/api/users"),
         pathname.startsWith("/api/posts"),
         pathname.startsWith("/api/follows"),
+        pathname.startsWith("/api/admin"),
+        pathname.startsWith("/api/search"),
+    ];
+
+    const authenticatedCronRoutes = [
+        pathname.startsWith("/api/cron")
     ];
 
     if (authenticatedApiRoutes.includes(true)) {
@@ -37,6 +43,15 @@ export async function middleware(request: NextRequest) {
                     status: 401
                 }
             );
+        }
+    }
+
+    if (authenticatedCronRoutes.includes(true)) {
+        const key = request.nextUrl.searchParams.get("cron_api_key");
+        const isAuthenticated = key === process.env.CRON_API_KEY;
+
+        if (!isAuthenticated) {
+            return NextResponse.json({error: "unauthenticated"}, {status: 401});
         }
     }
 }
