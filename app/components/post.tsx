@@ -43,7 +43,7 @@ function Post({
                 <div className="font-bold">
                     <Link href={`/${post.username}`}>{post.username}</Link>
                 </div>
-                <div className="text-slate-400">
+                <div className="text-slate-600">
                     {createdAt.toLocaleDateString("en-us", options)}
                 </div>
                 <div>
@@ -52,7 +52,7 @@ function Post({
             </div>
             {showEditBtn && (
                 <div className="text-right flex-grow">
-                    <Link href={`/profile/edit-post/${post.id}`} className="text-green-400">Edit</Link>
+                    <Link href={`/profile/edit-post/${post.id}`} className="dark:text-green-400 text-green-800">Edit</Link>
                 </div>
             )}
         </div>
