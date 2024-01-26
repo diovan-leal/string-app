@@ -1,4 +1,6 @@
 import useSWR from "swr";
+import Image from "next/image";
+import Link from "next/link";
 
 export default function AvatarForm() {
     const { data, error, isLoading } = useSWR("/api/users/profile");
@@ -9,7 +11,7 @@ export default function AvatarForm() {
     const user = data.data;
 
     return (
-        <form>
+        <div>
             {user.avatar && (
                 <div>
                     <Image
@@ -31,8 +33,11 @@ export default function AvatarForm() {
                 >
                 </div>
             )}
-            <input type="file" />
-        </form>
-    )
-    
+            <Link href="/avatar/upload"
+                className="dark:text-green-400 text-green-800 underline p-2 rounded-lg my-5"
+            >
+                Update Avatar
+            </Link>
+        </div>
+    );
 }

@@ -3,7 +3,8 @@ const nextConfig = {
     images: {
         domains: [
             "avatars.githubusercontent.com",
-            "cloudflare-ipfs.com"
+            "cloudflare-ipfs.com",
+            "xxx.public.blob.vercel-storage.com"
         ],
     }
 }
