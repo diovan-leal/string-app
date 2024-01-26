@@ -5,7 +5,7 @@ function FollowersContainer() {
     const [cnt, setCnt] = useState(1);
     const pages = []
     for (let i = 0; i < cnt; i++) {
-        pages.push(<FollowersList index={i} />)
+        pages.push(<FollowersList index={i} key={i}/>)
     }
 
     return (
