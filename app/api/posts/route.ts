@@ -11,7 +11,7 @@ export async function GET(request: Request) {
     const limit = 3;
     const offset = page * 3;
 
-    const statement = `select p.* u.avatar, u.username 
+    const statement = `select p.*, u.avatar, u.username 
                          from posts p 
                    inner join users u on p.user_id = u.id
                         where user_id = $1
@@ -51,7 +51,7 @@ export async function POST(request: Request) {
     const content = json.content;
     const jwtPayload = await getJWTPayLoad();
     const statement = `insert into posts (user_id, content)
-                       values ($1, $2) returning`;
+                       values ($1, $2)`;
                        
     const res = await sql(statement, [
         jwtPayload.sub,

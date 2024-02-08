@@ -5,7 +5,7 @@ import { NextResponse } from "next/server";
 export async function GET(request: Request,
     {params}: {params: {id: number}}) {
         const jwtPayload = await getJWTPayLoad();
-        const statement = "select * from posts where id = $i and user_id = $2";
+        const statement = "select * from posts where id = $1 and user_id = $2";
         const  res = await sql(statement, [
             params.id,
             jwtPayload.sub

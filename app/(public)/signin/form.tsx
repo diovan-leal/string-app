@@ -58,7 +58,7 @@ function Form() {
                     />
                 </div>
                 <button type="submit"
-                    className="mt-4 dark:bg-slate-900 bg-slate-400 text-white p3 rounded-lg">
+                    className="mt-4 px-4 py-2 dark:bg-slate-900 bg-slate-400 text-white p3 rounded-lg">
                     Sign In
                 </button>
             </div>
