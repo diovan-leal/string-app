@@ -1,3 +1,5 @@
+import { useRouter } from "next/navigation";
+
 export default function SignOutButton() {
     const router = useRouter();
 

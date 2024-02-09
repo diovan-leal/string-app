@@ -1,4 +1,4 @@
-import useSWR from "swr";
+import useSWR, { mutate } from "swr";
 import notFound from "../not-found";
 
 export default function UserPageHeader({username} : {username: string}) {

@@ -22,7 +22,7 @@ function Form() {
     return (
         <form onSubmit={handleSubmit}>
             <textarea
-                className="bg-white text-black p2 rounded-lg w-full my-2"
+                className="bg-white text-black p-2 rounded-lg w-full my-2"
                 placeholder="what is happening?"
                 onChange={(e) => setPost(e.target.value)}
                 value={post}

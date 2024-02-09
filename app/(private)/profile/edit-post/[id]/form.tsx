@@ -1,5 +1,5 @@
-import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
+import { useRouter } from "next/navigation";
 
 function Form ({post}: {post: PostI}) {
     const router = useRouter();
@@ -7,7 +7,8 @@ function Form ({post}: {post: PostI}) {
 
     async function handleSubmit(e: FormEvent) {
         e.preventDefault();
-
+        console.log('----------debugging content------------');
+        console.log(content);
         const res = await fetch("/api/posts/" + post.id, {
             method: "PATCH",
             body: JSON.stringify({content: content})

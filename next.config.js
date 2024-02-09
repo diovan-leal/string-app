@@ -4,7 +4,7 @@ const nextConfig = {
         domains: [
             "avatars.githubusercontent.com",
             "cloudflare-ipfs.com",
-            "xxx.public.blob.vercel-storage.com"
+            "rlcugkdw6bdbdd9c.public.blob.vercel-storage.com"
         ],
     }
 }
