@@ -18,7 +18,7 @@ export async function GET(request: Request,
         return NextResponse.json({data: res.rows[0]});
 }
 
-export async function PATH(request: Request,
+export async function PATCH(request: Request,
     {params}: {params: {id: number}}) {
         const body = await request.json();
         const jwtPayload = await getJWTPayLoad();
@@ -33,7 +33,7 @@ export async function PATH(request: Request,
         }
 
         const updateStatement = `update posts 
-                              set content = $i
+                              set content = $1
                             where user_id = $2
                               and id = $3`;
 
