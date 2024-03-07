@@ -15,8 +15,8 @@ export async function GET(
     const id = params.id;
     const res = await sql(
         `select u.id, u.username, u.avatar
-        from users u inner join followns f on u.id = f.user_id
-        where followers_id = $1 limit $2 offset $3
+        from users u inner join follows f on u.id = f.user_id
+        where follower_id = $1 limit $2 offset $3
         `, [id, limit, offset]
     );
 
