@@ -32,8 +32,6 @@ export async function middleware(request: NextRequest) {
 
         try {
             const secret = new TextEncoder().encode(process.env.JWT_SECRET!);
-            console.log('secret: ', process.env.JWT_SECRET, secret);
-            console.log('envs: ', process.env);
             await jwtVerify(cookie.value, secret);
         } catch (error) {
             console.error(error);
