@@ -5,7 +5,7 @@ import { NextResponse } from 'next/server';
 
 export async function POST(request: Request): Promise<NextResponse> {
   const jwtPayload = await getJWTPayLoad();
-  console.log('post', request, jwtPayload);
+  console.log('jwt-payload', jwtPayload);
   const { searchParams } = new URL(request.url);
   const filename = searchParams.get('filename')!;
 
