@@ -5,11 +5,11 @@ function FeedList({index}:{index:number}) {
     const { data, error, isLoading } = useSWR("/api/posts/feed?page=" + index);
 
     if (error) {
-        return <div>failed to load</div>
+        return <div>falha ao carregar</div>
     }
 
     if (isLoading) {
-        return <div>loading...</div>
+        return <div>carregando...</div>
     }
 
     return (

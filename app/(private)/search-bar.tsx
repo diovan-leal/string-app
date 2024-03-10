@@ -54,7 +54,7 @@ export default function SearchBar() {
                 onClick={handleClick}
                 type="text"
                 className="p-2 rounded-lg bg-white text-black my-2 max-w-xs"
-                placeholder="Search"
+                placeholder="Encontre outros helowers :)"
             />
             {visible && searchResults.length > 0 && (
                 <ul className="flex flex-col bg-white text-black absolute p-2 rounded-lg top-14 w-full max-w-sm right-2">
