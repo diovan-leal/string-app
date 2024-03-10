@@ -1,6 +1,6 @@
 "use client";
 import { useRouter } from "next/navigation";
-import React, { FormEvent, useState } from "react";
+import React, { FormEvent, useState, useEffect } from "react";
 
 function Form() {
     const router = useRouter();
@@ -8,15 +8,9 @@ function Form() {
     const [password, setPassword] = useState<undefined | string>("")
     const [error, setError] = useState('');
 
-    const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setUsername(e.target.value);
+    useEffect(() => {
         setError('');
-    };
-    
-    const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setPassword(e.target.value);
-        setError('');
-    };
+    }, [username, password]);
 
     async function handleSubmit(e: FormEvent) {
         e.preventDefault();
@@ -50,7 +44,7 @@ function Form() {
                     <label className="-mb-2">Nome</label>
                     <input type="text"
                         className="text-black p-3 border border-slate-700 rounded-lg"
-                        onChange={handleUsernameChange}
+                        onChange={(e) => setUsername(e.target.value)}
                         value={username}
                         id="username"
                         placeholder="Nome"
@@ -61,7 +55,7 @@ function Form() {
                     <label className="-mb-2">Senha</label>
                     <input type="password"
                         className="text-black p-3 border border-slate-700 rounded-lg"
-                        onChange={handlePasswordChange}
+                        onChange={(e) => setPassword(e.target.value)}
                         value={password}
                         id="password"
                         placeholder="Senha"
